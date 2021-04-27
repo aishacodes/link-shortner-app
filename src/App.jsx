@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./App.css";
 
 const token = process.env.REACT_APP_Access_TOKEN;
 
-const url = "https://api-ssl.bitly.com/v4/shorten";
-
 function App() {
   const [shortLink, setShortLink] = useState("");
+  const textAreaRef = useRef(null);
+  const [copySuccess, setCopySuccess] = useState("");
 
   const generateLink = (e) => {
     e.preventDefault();
@@ -29,6 +29,13 @@ function App() {
     fetchLink();
   };
 
+  const copyToClipboard = (e) => {
+    textAreaRef.current.select();
+    document.execCommand("copy");
+    e.target.focus();
+    setCopySuccess("Copied!");
+  };
+
   return (
     <div className="App">
       <form action="" onSubmit={generateLink}>
@@ -36,8 +43,15 @@ function App() {
         <button>Shorten</button>
       </form>
       <div className="output">
-        <input type="text" value={shortLink ? shortLink : ""} />
-        <button className="copy-button">copy Link</button>
+        <input
+          ref={textAreaRef}
+          type="text"
+          value={shortLink ? shortLink : ""}
+        />
+        <button className="copy-button" onClick={copyToClipboard}>
+          copy Link
+        </button>
+        {copySuccess}
       </div>
     </div>
   );
