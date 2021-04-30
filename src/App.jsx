@@ -38,6 +38,17 @@ function App() {
 
   return (
     <div className="App">
+      <header>
+        <p>Link Shortner</p>
+      </header>
+      <div>
+        <p>Simple-ize your advanced link.</p>
+        <span>
+          Share your content with audience and maximize potential of your social
+          bio in just one link
+        </span>
+        <button>Get started</button>
+      </div>
       <form action="" onSubmit={generateLink}>
         <input type="text" name="newLink" />
         <button>Shorten</button>
